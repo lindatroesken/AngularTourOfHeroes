@@ -20,7 +20,17 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     // this.heroes = this.heroService.getHeroes(); // for synchronous operations only
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes); // because it's asynchronous/observable
+    this.heroService.getHeroes()
+      .subscribe(heroes => this.heroes = heroes); // because it's asynchronous/observable
+  }
+
+  add(name: string): void {
+    name = name.trim();
+    if(!name) {return;}
+    this.heroService.addHero({name} as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
   }
 
 }
